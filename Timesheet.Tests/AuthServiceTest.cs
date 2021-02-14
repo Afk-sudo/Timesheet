@@ -1,6 +1,7 @@
 using NUnit.Framework;
-using Timesheet.Api.Repositories;
-using Timesheet.Api.Services;
+using Timesheet.Application.Services;
+using Timesheet.DataAccess.Npgsql.Repositories;
+using Timesheet.Domain.Abstractions;
 
 namespace Timesheet.Tests
 {

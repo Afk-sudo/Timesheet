@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Timesheet.Api.Entities;
+using Timesheet.Domain.Entities;
 
-namespace Timesheet.Api.Repositories
+namespace Timesheet.Domain.Abstractions
 {
     public interface IEmployeeRepository
     {
         List<Employee> Employees { get; }
+        bool IsEmployeeExist(string login);
     }
 }

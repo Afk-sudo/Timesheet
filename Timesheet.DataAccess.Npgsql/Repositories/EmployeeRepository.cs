@@ -1,7 +1,9 @@
 using System.Collections.Generic;
-using Timesheet.Api.Entities;
+using System.Linq;
+using Timesheet.Domain.Abstractions;
+using Timesheet.Domain.Entities;
 
-namespace Timesheet.Api.Repositories
+namespace Timesheet.DataAccess.Npgsql.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -16,5 +18,12 @@ namespace Timesheet.Api.Repositories
         }
         
         public List<Employee> Employees { get; private set; }
+        public bool IsEmployeeExist(string login)
+        {
+            var employee = Employees.FirstOrDefault(e => e.Login == login);
+            if (employee == null)
+                return false;
+            return true;
+        }
     }
 }

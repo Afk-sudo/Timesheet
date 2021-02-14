@@ -1,4 +1,4 @@
-namespace Timesheet.Api.Entities
+namespace Timesheet.Domain.Entities
 {
     public class BaseEntity
     {

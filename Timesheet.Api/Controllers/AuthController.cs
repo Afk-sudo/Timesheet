@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Timesheet.Api.ResourceModels;
 using Timesheet.Api.Services;
+using Timesheet.Domain.Abstractions;
 
 namespace Timesheet.Api.Controllers
 {
@@ -8,12 +9,12 @@ namespace Timesheet.Api.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        public AuthController(AuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
         
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
     
         [HttpPost]
         public IActionResult Login([FromBody]LoginRequest request)

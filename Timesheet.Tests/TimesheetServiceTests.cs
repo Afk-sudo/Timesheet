@@ -1,44 +1,59 @@
 using System;
 using NUnit.Framework;
-using Timesheet.Api.Models;
 using Timesheet.Api.Services;
+using Timesheet.Application.Services;
+using Timesheet.Domain.Entities;
+using Timesheet.Domain.Models;
 
 namespace Timesheet.Tests
 {
     public class TimesheetServiceTests
     {
-        [Test]
-        public void TrackTime_ShouldReturnTrue()
+        [TestCase(8, "Иванов")]
+        [TestCase(18, "Петров")]
+        [TestCase(10, "Сидоров")]
+        public void TrackTime_ShouldReturnTrue(int workingHourse, string login)
         {
             //arrange
+            var employee = new Employee{ Login = login};
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourse = 1,
-                Login = ""
+                WorkingHourse = workingHourse,
+                Employee = employee,
+                Comment = ""
             };
-                
-            
+            UserSession.Sessions.Add(employee);
+
             var service = new TimesheetService();
+         
             //act
             var result = service.TrackTime(timeLog);
 
-                //assert
+            //assert
             Assert.IsTrue(result);
         }
-        [Test]
-        public void TrackTime_ShouldReturnFalse()
+        
+        [TestCase(25, null)]
+        [TestCase(-5, "")]
+        [TestCase(0, "TestUser")]
+        [TestCase(10, "TestUser")]
+        [TestCase(26, "Петров")]
+        public void TrackTime_ShouldReturnFalse(int workingHourse, string login)
         {
             //arrange
+            var employee = new Employee{ Login = login};
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourse = 1,
-                Login = ""
+                WorkingHourse = workingHourse,
+                Employee = employee,
+                Comment = ""
             };
-                
+            UserSession.Sessions.Add(employee);
             
             var service = new TimesheetService();
+            
             //act
             var result = service.TrackTime(timeLog);
 

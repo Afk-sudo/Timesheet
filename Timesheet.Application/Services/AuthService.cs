@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Timesheet.Api.Entities;
-using Timesheet.Api.Repositories;
+using Timesheet.Domain.Abstractions;
+using Timesheet.Domain.Entities;
 
-namespace Timesheet.Api.Services
+namespace Timesheet.Application.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         public AuthService(IEmployeeRepository employeeRepository)
         {
