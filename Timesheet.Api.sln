@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.Api", "Timesheet.Api\Timesheet.Api.csproj", "{A06766BC-B697-4BBE-AFDB-0F531827DDAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.Tests", "Timesheet.Tests\Timesheet.Tests.csproj", "{C39EA8DE-BD6F-41F5-B441-AB1B502CE5CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A06766BC-B697-4BBE-AFDB-0F531827DDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A06766BC-B697-4BBE-AFDB-0F531827DDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A06766BC-B697-4BBE-AFDB-0F531827DDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C39EA8DE-BD6F-41F5-B441-AB1B502CE5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39EA8DE-BD6F-41F5-B441-AB1B502CE5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39EA8DE-BD6F-41F5-B441-AB1B502CE5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39EA8DE-BD6F-41F5-B441-AB1B502CE5CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
