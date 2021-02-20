@@ -25,5 +25,10 @@ namespace Timesheet.DataAccess.Npgsql.Repositories
                 return false;
             return true;
         }
+
+        public Employee GetEmployee(string login)
+        {
+            return Employees.FirstOrDefault(e => e.Login == login);
+        }
     }
 }

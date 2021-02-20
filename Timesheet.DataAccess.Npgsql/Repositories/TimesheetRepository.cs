@@ -10,5 +10,10 @@ namespace Timesheet.DataAccess.Npgsql.Repositories
         {
             return null;
         }
+
+        public void Add(TimeLog timeLog)
+        {
+            
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace Timesheet.Domain.Models
     public class TimeLog
     {
         public DateTime Date { get; set; } = new DateTime(1, 2, 3);
-        public int WorkingHourse { get; set; }
+        public int WorkingHours { get; set; }
         public Employee Employee { get; set; }
         public string Comment { get; set; }
         

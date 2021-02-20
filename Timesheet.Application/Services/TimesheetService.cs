@@ -9,16 +9,18 @@ namespace Timesheet.Api.Services
 {
     public class TimesheetService : ITimesheetService
     {
-        public TimesheetService()
+        public TimesheetService(ITimesheetRepository timesheetRepository)
         {
+            _timesheetRepository = timesheetRepository;
             _employeeRepository = new EmployeeRepository();
         }
-            
+
+        private readonly ITimesheetRepository _timesheetRepository;
         private readonly IEmployeeRepository _employeeRepository;
         public bool TrackTime(TimeLog timeLog)
         {
-            bool isValid = timeLog.WorkingHourse > 0 
-                           && timeLog.WorkingHourse <= 24 
+            bool isValid = timeLog.WorkingHours > 0 
+                           && timeLog.WorkingHours <= 24 
                            && _employeeRepository.IsEmployeeExist(timeLog.Employee.Login);
             var employee = UserSession.Sessions.FirstOrDefault(e => e.Login == timeLog.Employee.Login);
             if (employee == null)
@@ -26,15 +28,10 @@ namespace Timesheet.Api.Services
 
             if(isValid)
             {
-                Timesheets.TimeLogs.Add(timeLog);
+                _timesheetRepository.Add(timeLog);
                 return true;
             }
             return false;
         }
     }
-
-    public static class Timesheets
-    {
-        public static List<TimeLog> TimeLogs { get; set; } = new List<TimeLog>();
-    }
-}
+ }

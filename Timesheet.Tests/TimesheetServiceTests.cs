@@ -1,7 +1,9 @@
 using System;
+using Moq;
 using NUnit.Framework;
 using Timesheet.Api.Services;
 using Timesheet.Application.Services;
+using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
 using Timesheet.Domain.Models;
 
@@ -19,18 +21,26 @@ namespace Timesheet.Tests
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourse = workingHourse,
+                WorkingHours = workingHourse,
                 Employee = employee,
                 Comment = ""
             };
             UserSession.Sessions.Add(employee);
 
-            var service = new TimesheetService();
+            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            
+            timesheetRepositoryMock
+                .Setup(x => x.Add(timeLog))
+                .Verifiable();
+            
+            
+            var service = new TimesheetService(timesheetRepositoryMock.Object);
          
             //act
             var result = service.TrackTime(timeLog);
 
             //assert
+            timesheetRepositoryMock.Verify(x => x.Add(timeLog), Times.Once);
             Assert.IsTrue(result);
         }
         
@@ -46,18 +56,25 @@ namespace Timesheet.Tests
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
-                WorkingHourse = workingHourse,
+                WorkingHours = workingHourse,
                 Employee = employee,
                 Comment = ""
             };
             UserSession.Sessions.Add(employee);
             
-            var service = new TimesheetService();
+            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            
+            timesheetRepositoryMock
+                .Setup(x => x.Add(timeLog))
+                .Verifiable();
+            
+            var service = new TimesheetService(timesheetRepositoryMock.Object);
             
             //act
             var result = service.TrackTime(timeLog);
 
             //assert
+            timesheetRepositoryMock.Verify(x => x.Add(timeLog), Times.Never());
             Assert.IsFalse(result);
         }
     }

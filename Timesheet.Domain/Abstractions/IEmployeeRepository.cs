@@ -7,5 +7,6 @@ namespace Timesheet.Domain.Abstractions
     {
         List<Employee> Employees { get; }
         bool IsEmployeeExist(string login);
+        Employee GetEmployee(string login);
     }
 }

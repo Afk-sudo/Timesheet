@@ -4,5 +4,6 @@ namespace Timesheet.Domain.Entities
     {
         public string Login { get; set; }
         public string PasswordHash { get; set; }
+        public decimal Salary { get; set; }
     }
 }
