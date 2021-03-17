@@ -5,11 +5,10 @@ using NUnit.Framework;
 using Timesheet.Api.Services;
 using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
-using Timesheet.Domain.Models;
 
 namespace Timesheet.Tests
 {
-    public class ReportServiceTest
+    public class ReportServiceTests
     {
         [Test]
         public void GetEmployeeReport_ShouldReturnReport()
@@ -126,14 +125,13 @@ namespace Timesheet.Tests
         public void GetEmployeeReport_TimeLogsForOneDay_ShouldReturnReport()
         {
             //arrange 
-            var timesheetRepositoryMoq = new Mock<ITimesheetRepository>();
-            var employeeRepositoryMoq = new Mock<IEmployeeRepository>();
             var expectedLogin = "Иванов";
             var expectedTotal = 8m / 160m * 70000;
             var expectedTotalHours = 8;
-
-            timesheetRepositoryMoq.Setup(x => 
-                x.GetTimeLogs(It.Is<string>(l => l == expectedLogin )))
+            
+            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            timesheetRepositoryMock.Setup(x => 
+                    x.GetTimeLogs(It.Is<string>(l => l == expectedLogin )))
                 .Returns(() => new TimeLog[]
                 {
                     new TimeLog
@@ -144,19 +142,20 @@ namespace Timesheet.Tests
                         Comment = "Comment"
                     }
                 });
-            employeeRepositoryMoq.Setup(x 
+            
+            var employeeRepositoryMock = new Mock<IEmployeeRepository>();
+            employeeRepositoryMock.Setup(x 
                 => x.GetEmployee(It.Is<string>(l => l == expectedLogin)))
                 .Returns(() => new Employee{Login = expectedLogin, Salary = 70_000});
             
-            
-            var service = new ReportService(timesheetRepositoryMoq.Object, employeeRepositoryMoq.Object);
+            var service = new ReportService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
             
             //act
             var result = service.GetEmployeeReport(expectedLogin);
             
             //assert
-            timesheetRepositoryMoq.VerifyAll();
-            employeeRepositoryMoq.VerifyAll();
+            timesheetRepositoryMock.VerifyAll();
+            employeeRepositoryMock.VerifyAll();
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.TimeLogs);

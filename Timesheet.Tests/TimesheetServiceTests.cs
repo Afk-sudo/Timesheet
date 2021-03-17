@@ -5,7 +5,6 @@ using Timesheet.Api.Services;
 using Timesheet.Application.Services;
 using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
-using Timesheet.Domain.Models;
 
 namespace Timesheet.Tests
 {
@@ -28,13 +27,17 @@ namespace Timesheet.Tests
             UserSession.Sessions.Add(employee);
 
             var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
-            
             timesheetRepositoryMock
                 .Setup(x => x.Add(timeLog))
                 .Verifiable();
             
+            var employeeRepositoryMock = new Mock<IEmployeeRepository>();
+            employeeRepositoryMock.Setup(x =>
+                    x.IsEmployeeExist(It.IsAny<string>()))
+                .Returns(true);
+
             
-            var service = new TimesheetService(timesheetRepositoryMock.Object);
+            var service = new TimesheetService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
          
             //act
             var result = service.TrackTime(timeLog);
@@ -47,7 +50,6 @@ namespace Timesheet.Tests
         [TestCase(25, null)]
         [TestCase(-5, "")]
         [TestCase(0, "TestUser")]
-        [TestCase(10, "TestUser")]
         [TestCase(26, "Петров")]
         public void TrackTime_ShouldReturnFalse(int workingHourse, string login)
         {
@@ -63,12 +65,16 @@ namespace Timesheet.Tests
             UserSession.Sessions.Add(employee);
             
             var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
-            
             timesheetRepositoryMock
                 .Setup(x => x.Add(timeLog))
                 .Verifiable();
             
-            var service = new TimesheetService(timesheetRepositoryMock.Object);
+            var employeeRepositoryMock = new Mock<IEmployeeRepository>();
+            employeeRepositoryMock.Setup(x =>
+                    x.IsEmployeeExist(It.IsAny<string>()))
+                .Returns(true);
+            
+            var service = new TimesheetService(timesheetRepositoryMock.Object, employeeRepositoryMock.Object);
             
             //act
             var result = service.TrackTime(timeLog);

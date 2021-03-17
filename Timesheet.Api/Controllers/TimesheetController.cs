@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Timesheet.Domain.Abstractions;
-using Timesheet.Domain.Models;
+using Timesheet.Domain.Entities;
 
 namespace Timesheet.Api.Controllers
 {

@@ -1,13 +1,13 @@
+using Moq;
 using NUnit.Framework;
 using Timesheet.Application.Services;
-using Timesheet.DataAccess.Npgsql.Repositories;
 using Timesheet.Domain.Abstractions;
+using Timesheet.Domain.Entities;
 
 namespace Timesheet.Tests
 {
-    public class AuthServiceTest
+    public class AuthServiceTests
     {
-        private readonly IEmployeeRepository _employeeRepository = new EmployeeRepository();
         
         [TestCase("Иванов", "QWERTY")]
         [TestCase("Петров", "qwerty123")]
@@ -15,7 +15,12 @@ namespace Timesheet.Tests
         public void Login_ShouldReturnTrue(string login, string password)
         {   
             //arrange
-            var service = new AuthService(_employeeRepository);
+            var employeeRepositoryMock = new Mock<IEmployeeRepository>();
+            employeeRepositoryMock.Setup(x =>
+                    x.GetEmployeeByLoginPassword(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new Employee());
+            
+            var service = new AuthService(employeeRepositoryMock.Object);
             
             //act
             var result = service.Login(login, password);
@@ -26,16 +31,21 @@ namespace Timesheet.Tests
         
         [TestCase("", "")]
         [TestCase(null, null)]
-        [TestCase("TestUser","qwerty")]
-        [TestCase("User", "123456")]
+        [TestCase("","qwerty")]
+        [TestCase(null, "123456")]
         public void Login_ShouldReturnFalse(string login, string password)
         {   
             //arrange
-            var service = new AuthService(_employeeRepository);
+            var employeeRepositoryMock = new Mock<IEmployeeRepository>();
+            employeeRepositoryMock.Setup(x =>
+                    x.GetEmployeeByLoginPassword(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new Employee());
+
+            var service = new AuthService(employeeRepositoryMock.Object);
 
             //act
             var result = service.Login(login, password);
-
+            
             //assert
             Assert.IsFalse(result);
         }

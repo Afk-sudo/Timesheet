@@ -1,22 +1,22 @@
-using System.Collections.Generic;
 using System.Linq;
 using Timesheet.Application.Services;
-using Timesheet.DataAccess.Npgsql.Repositories;
 using Timesheet.Domain.Abstractions;
-using Timesheet.Domain.Models;
+using Timesheet.Domain.Entities;
 
 namespace Timesheet.Api.Services
 {
     public class TimesheetService : ITimesheetService
     {
-        public TimesheetService(ITimesheetRepository timesheetRepository)
+        public TimesheetService(ITimesheetRepository timesheetRepository, 
+            IEmployeeRepository employeeRepository)
         {
             _timesheetRepository = timesheetRepository;
-            _employeeRepository = new EmployeeRepository();
+            _employeeRepository = employeeRepository;
         }
 
         private readonly ITimesheetRepository _timesheetRepository;
         private readonly IEmployeeRepository _employeeRepository;
+
         public bool TrackTime(TimeLog timeLog)
         {
             bool isValid = timeLog.WorkingHours > 0 

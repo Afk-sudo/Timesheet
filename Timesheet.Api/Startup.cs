@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Timesheet.Api.Services;
 using Timesheet.Application.Services;
+using Timesheet.DataAccess.Npgsql;
 using Timesheet.DataAccess.Npgsql.Repositories;
 using Timesheet.Domain.Abstractions;
 
@@ -11,6 +14,13 @@ namespace Timesheet.Api
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        
+        private readonly IConfiguration _configuration;
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

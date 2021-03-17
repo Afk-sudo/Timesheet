@@ -15,8 +15,11 @@ namespace Timesheet.Application.Services
         private readonly IEmployeeRepository _employeeRepository;
         public bool Login(string login, string password)
         {
-            var employee = _employeeRepository.Employees
-                .FirstOrDefault(e => e.Login == login && e.PasswordHash == password);
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+                return false;
+            
+            string passwordHash = password;
+            var employee = _employeeRepository.GetEmployeeByLoginPassword(login, passwordHash);
 
             if (employee != null)
             {

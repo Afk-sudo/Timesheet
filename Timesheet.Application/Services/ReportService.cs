@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
-using Timesheet.Domain.Models;
 
 namespace Timesheet.Api.Services
 {

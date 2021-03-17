@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.Domain", "Timeshe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.Application", "Timesheet.Application\Timesheet.Application.csproj", "{12DD37F8-6F54-4EAA-9923-D1AC17AD630A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.DataAccess.Npgsql", "Timesheet.DataAccess.Npgsql\Timesheet.DataAccess.Npgsql.csproj", "{A511F679-2677-4AD2-AA59-5F33BB51D1A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheet.DataAccess", "Timesheet.DataAccess\Timesheet.DataAccess.csproj", "{A511F679-2677-4AD2-AA59-5F33BB51D1A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

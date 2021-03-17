@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Timesheet.DataAccess.Npgsql\Timesheet.DataAccess.Npgsql.csproj" />
+      <ProjectReference Include="..\Timesheet.DataAccess\Timesheet.DataAccess.csproj" />
       <ProjectReference Include="..\Timesheet.Domain\Timesheet.Domain.csproj" />
     </ItemGroup>
 

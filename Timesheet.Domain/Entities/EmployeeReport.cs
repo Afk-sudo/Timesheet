@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Timesheet.Domain.Entities;
 
-namespace Timesheet.Domain.Models
+namespace Timesheet.Domain.Entities
 {
     public class EmployeeReport
     {
@@ -11,7 +11,6 @@ namespace Timesheet.Domain.Models
         public DateTime EndDate { get; set; }
         
         public List<TimeLog> TimeLogs { get; set; }
-        
         public int TotalHours { get; set; }
         public decimal Bill { get;set; }
     }

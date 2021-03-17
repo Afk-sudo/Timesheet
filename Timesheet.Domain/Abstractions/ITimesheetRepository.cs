@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Timesheet.Domain.Models;
+using Timesheet.Domain.Entities;
 
 namespace Timesheet.Domain.Abstractions
 {
