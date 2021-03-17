@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Timesheet.Api.Services;
 using Timesheet.Application.Services;
-using Timesheet.DataAccess.Npgsql;
-using Timesheet.DataAccess.Npgsql.Repositories;
+using Timesheet.DataAccess;
+using Timesheet.DataAccess.Repositories;
 using Timesheet.Domain.Abstractions;
 
 namespace Timesheet.Api
@@ -23,11 +24,24 @@ namespace Timesheet.Api
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                    options.UseNpgsql(_configuration["Data:ConnectionString"]);
+            });
+            
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ITimesheetRepository, TimesheetRepository>();
+            
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITimesheetService, TimesheetService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             
             services.AddControllers();
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Timesheet API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -36,6 +50,11 @@ namespace Timesheet.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "Timesheet API V1");
+            });
 
             app.UseRouting();
 

@@ -1,7 +1,7 @@
 using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
 
-namespace Timesheet.DataAccess.Npgsql.Repositories
+namespace Timesheet.DataAccess.Repositories
 {
     public class TimesheetRepository : ITimesheetRepository
     {
