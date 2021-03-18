@@ -7,14 +7,14 @@ namespace Timesheet.Api.Services
 {
     public class TimesheetService : ITimesheetService
     {
-        public TimesheetService(ITimesheetRepository timesheetRepository, 
+        public TimesheetService(ITimeLogRepository timeLogRepository, 
             IEmployeeRepository employeeRepository)
         {
-            _timesheetRepository = timesheetRepository;
+            _timeLogRepository = timeLogRepository;
             _employeeRepository = employeeRepository;
         }
 
-        private readonly ITimesheetRepository _timesheetRepository;
+        private readonly ITimeLogRepository _timeLogRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
         public bool TrackTime(TimeLog timeLog)
@@ -28,7 +28,7 @@ namespace Timesheet.Api.Services
 
             if(isValid)
             {
-                _timesheetRepository.Add(timeLog);
+                _timeLogRepository.Add(timeLog);
                 return true;
             }
             return false;

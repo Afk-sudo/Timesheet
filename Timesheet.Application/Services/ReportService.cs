@@ -7,22 +7,22 @@ namespace Timesheet.Api.Services
 {
     public class ReportService : IReportService
     {
-        public ReportService(ITimesheetRepository timesheetRepository, 
+        public ReportService(ITimeLogRepository timeLogRepository, 
             IEmployeeRepository employeeRepository)
         {
-            _timesheetRepository = timesheetRepository;
+            _timeLogRepository = timeLogRepository;
             _employeeRepository = employeeRepository;
         }
 
         private const decimal MAX_WORKING_HOURS_PER_MOUNT = 160m;
         private const decimal MAX_WORKING_HOURS_PER_DAY = 8m;
         
-        private readonly ITimesheetRepository _timesheetRepository;
+        private readonly ITimeLogRepository _timeLogRepository;
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeReport GetEmployeeReport(string login)
         {
             var employee = _employeeRepository.GetEmployee(login);
-            var timeLogs = _timesheetRepository.GetTimeLogs(login);
+            var timeLogs = _timeLogRepository.GetTimeLogs(login);
 
             if (timeLogs == null || timeLogs.Length == 0)
             {
@@ -55,7 +55,7 @@ namespace Timesheet.Api.Services
                 else
                 {
                     totalBill += dayHours / MAX_WORKING_HOURS_PER_MOUNT * employee.Salary;
-                 }
+                }
             }
             
             return new EmployeeReport

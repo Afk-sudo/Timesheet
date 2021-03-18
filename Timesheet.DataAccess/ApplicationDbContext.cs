@@ -8,8 +8,8 @@ namespace Timesheet.DataAccess
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<TimeLog> TimeLogs { get; set; }
     }
 }

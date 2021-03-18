@@ -30,11 +30,12 @@ namespace Timesheet.Api
             });
             
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<ITimesheetRepository, TimesheetRepository>();
+            services.AddScoped<ITimeLogRepository, TimeLogRepository>();
             
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITimesheetService, TimesheetService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IReportService, ReportService>();
             
             services.AddControllers();
             

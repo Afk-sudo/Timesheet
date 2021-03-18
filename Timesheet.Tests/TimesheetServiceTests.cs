@@ -26,7 +26,7 @@ namespace Timesheet.Tests
             };
             UserSession.Sessions.Add(employee);
 
-            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMock = new Mock<ITimeLogRepository>();
             timesheetRepositoryMock
                 .Setup(x => x.Add(timeLog))
                 .Verifiable();
@@ -64,7 +64,7 @@ namespace Timesheet.Tests
             };
             UserSession.Sessions.Add(employee);
             
-            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMock = new Mock<ITimeLogRepository>();
             timesheetRepositoryMock
                 .Setup(x => x.Add(timeLog))
                 .Verifiable();

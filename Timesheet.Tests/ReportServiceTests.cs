@@ -14,7 +14,7 @@ namespace Timesheet.Tests
         public void GetEmployeeReport_ShouldReturnReport()
         {
             //arrange 
-            var timesheetRepositoryMoq = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMoq = new Mock<ITimeLogRepository>();
             var employeeRepositoryMoq = new Mock<IEmployeeRepository>();
             var expectedLogin = "Иванов";
             var expectedTotal = 8_750m; //  (8+8+4)/160 * 70_000
@@ -73,7 +73,7 @@ namespace Timesheet.Tests
         public void GetEmployeeReport_ShouldReturnReportWithOvertimeBill()
         {
             //arrange 
-            var timesheetRepositoryMoq = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMoq = new Mock<ITimeLogRepository>();
             var employeeRepositoryMoq = new Mock<IEmployeeRepository>();
             var expectedLogin = "Иванов";
             var expectedTotal = 131_250m; //  ((8/160 * 70_000) + (1 / 160 * 70000 * 2)) * 30
@@ -129,7 +129,7 @@ namespace Timesheet.Tests
             var expectedTotal = 8m / 160m * 70000;
             var expectedTotalHours = 8;
             
-            var timesheetRepositoryMock = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMock = new Mock<ITimeLogRepository>();
             timesheetRepositoryMock.Setup(x => 
                     x.GetTimeLogs(It.Is<string>(l => l == expectedLogin )))
                 .Returns(() => new TimeLog[]
@@ -169,7 +169,7 @@ namespace Timesheet.Tests
         public void GetEmployeeReport_TimeLogsWithOvertimeForOneDay_ShouldReturnReport()
         {
             //arrange 
-            var timesheetRepositoryMoq = new Mock<ITimesheetRepository>();
+            var timesheetRepositoryMoq = new Mock<ITimeLogRepository>();
             var employeeRepositoryMoq = new Mock<IEmployeeRepository>();
             var expectedLogin = "Иванов";
             var expectedTotal = 8m / 160m * 70000 + 4m / 160m * 70000 * 2;

@@ -13,12 +13,6 @@ namespace Timesheet.Api.Controllers
             _timesheetService = timesheetService;
         }
         private readonly ITimesheetService _timesheetService;
-
-        [HttpGet]
-        public string Test()
-        {
-            return "test";
-        }
         
         [HttpPost]
         public IActionResult Add([FromBody]TimeLog timeLog)
