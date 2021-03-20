@@ -16,7 +16,7 @@ namespace Timesheet.Tests
         public void TrackTime_ShouldReturnTrue(int workingHourse, string login)
         {
             //arrange
-            var employee = new Employee{ Login = login};
+            var employee = new StaffEmployee(login, 70_000);
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),
@@ -54,7 +54,7 @@ namespace Timesheet.Tests
         public void TrackTime_ShouldReturnFalse(int workingHourse, string login)
         {
             //arrange
-            var employee = new Employee{ Login = login};
+            var employee = new StaffEmployee(login, 70_000);
             var timeLog = new TimeLog
             {
                 Date = new DateTime(),

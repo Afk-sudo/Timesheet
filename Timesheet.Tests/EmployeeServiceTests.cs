@@ -14,7 +14,7 @@ namespace Timesheet.Tests
         public void AddEmployee_ShouldReturnTrue(string login, decimal salary)
         {
             //arrange
-            Employee employee = new Employee(login, salary);
+            Employee employee = new StaffEmployee(login, salary);
 
             var employeeRepositoryMock = new Mock<IEmployeeRepository>();
             employeeRepositoryMock.Setup(x => x.Add(employee))
@@ -36,7 +36,7 @@ namespace Timesheet.Tests
         public void AddEmployee_ShouldReturnFalse(string login, decimal salary)
         {
             //arrange
-            Employee employee = new Employee(login, salary);
+            Employee employee = new StaffEmployee(login, salary);
 
             var employeeRepositoryMock = new Mock<IEmployeeRepository>();
             employeeRepositoryMock.Setup(x => x.Add(employee))
