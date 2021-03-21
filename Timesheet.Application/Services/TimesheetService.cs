@@ -21,8 +21,8 @@ namespace Timesheet.Api.Services
         {
             bool isValid = timeLog.WorkingHours > 0 
                            && timeLog.WorkingHours <= 24 
-                           && _employeeRepository.IsEmployeeExist(timeLog.Employee.Login);
-            var employee = UserSession.Sessions.FirstOrDefault(e => e.Login == timeLog.Employee.Login);
+                           && _employeeRepository.IsEmployeeExist(timeLog.EmployeeLogin);
+            var employee = UserSession.Sessions.FirstOrDefault(e => e.Login == timeLog.EmployeeLogin);
             if (employee == null)
                 isValid = false;            
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Timesheet.DataAccess;
@@ -9,9 +10,10 @@ using Timesheet.DataAccess;
 namespace Timesheet.DataAccess.Npgsql.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210321014838_remove employee type")]
+    partial class removeemployeetype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,13 +61,15 @@ namespace Timesheet.DataAccess.Npgsql.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("EmployeeLogin")
-                        .HasColumnType("text");
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("WorkingHours")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("TimeLogs");
                 });
@@ -92,6 +96,15 @@ namespace Timesheet.DataAccess.Npgsql.Migrations
                     b.HasBaseType("Timesheet.Domain.Entities.Employee");
 
                     b.HasDiscriminator().HasValue("StaffEmployee");
+                });
+
+            modelBuilder.Entity("Timesheet.Domain.Entities.TimeLog", b =>
+                {
+                    b.HasOne("Timesheet.Domain.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }

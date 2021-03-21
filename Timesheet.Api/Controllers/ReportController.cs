@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Timesheet.Api.ResourceModels;
 using Timesheet.Domain.Abstractions;
 using Timesheet.Domain.Entities;
 
@@ -15,9 +16,9 @@ namespace Timesheet.Api.Controllers
         private readonly IReportService _reportService;
 
         [HttpGet]
-        public ActionResult<EmployeeReport> Report([FromBody]Employee employee)
+        public ActionResult<EmployeeReport> Report([FromBody]ReportModel model)
         {
-            return _reportService.GetEmployeeReport(employee.Login);
+            return _reportService.GetEmployeeReport(model.Login);
         }
     }
 }

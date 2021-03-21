@@ -12,13 +12,37 @@ namespace Timesheet.Application.Services
 
         private readonly IEmployeeRepository _employeeRepository;
         
-        public bool AddEmployee(Employee employee)
+        public bool AddStaffEmployee(StaffEmployee employee)
         {
             bool isValid = !string.IsNullOrEmpty(employee.Login) && employee.Salary > 0;
 
             if (isValid)
             {
-                _employeeRepository.Add(employee);
+                _employeeRepository.AddStaff(employee);
+            }
+
+            return isValid;
+        }
+
+        public bool AddChiefEmployee(ChiefEmployee employee)
+        {
+            bool isValid = !string.IsNullOrEmpty(employee.Login) && employee.Salary > 0;
+
+            if (isValid)
+            {
+                _employeeRepository.AddChief(employee);
+            }
+
+            return isValid;
+        }
+        
+        public bool AddFreelancerEmployee(FreelancerEmployee employee)
+        {
+            bool isValid = !string.IsNullOrEmpty(employee.Login) && employee.Salary > 0;
+
+            if (isValid)
+            {
+                _employeeRepository.AddFreelancer(employee);
             }
 
             return isValid;

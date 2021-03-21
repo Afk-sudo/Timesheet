@@ -15,7 +15,7 @@ namespace Timesheet.DataAccess.Repositories
         
         public TimeLog[] GetTimeLogs(string login)
         {
-            return _context.TimeLogs.Where(t => t.Employee.Login == login).ToArray();
+            return _context.TimeLogs.Where(t => t.EmployeeLogin == login).ToArray();
         }
 
         public void Add(TimeLog timeLog)

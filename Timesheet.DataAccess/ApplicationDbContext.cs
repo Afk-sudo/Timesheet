@@ -10,6 +10,9 @@ namespace Timesheet.DataAccess
         {
         }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<ChiefEmployee> ChiefEmployees { get; set; }
+        public DbSet<StaffEmployee> StaffEmployees { get; set; }
+        public DbSet<FreelancerEmployee> FreelancerEmployees { get; set; }
         public DbSet<TimeLog> TimeLogs { get; set; }
     }
 }

@@ -14,9 +14,6 @@ namespace Timesheet.Api.Services
             _employeeRepository = employeeRepository;
         }
 
-        private const decimal MAX_WORKING_HOURS_PER_MOUNT = 160m;
-        private const decimal MAX_WORKING_HOURS_PER_DAY = 8m;
-        
         private readonly ITimeLogRepository _timeLogRepository;
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeReport GetEmployeeReport(string login)
@@ -35,35 +32,14 @@ namespace Timesheet.Api.Services
                 };
             }
 
-            var totalHours = timeLogs.Sum(t => t.WorkingHours);
-            decimal totalBill = 0;
-            
-            var workingHoursGroupByDay = timeLogs
-                .GroupBy(t => t.Date.ToShortDateString());
-
-            foreach (var workingLogsPerDay in workingHoursGroupByDay)
-            {
-                int dayHours = workingLogsPerDay.Sum(x => x.WorkingHours);
-
-                if (dayHours > MAX_WORKING_HOURS_PER_DAY)
-                {
-                    var overtime = dayHours - MAX_WORKING_HOURS_PER_DAY;
-                    totalBill += MAX_WORKING_HOURS_PER_DAY / MAX_WORKING_HOURS_PER_MOUNT * employee.Salary;
-                    totalBill += overtime / MAX_WORKING_HOURS_PER_MOUNT * employee.Salary * 2;
-                    
-                }
-                else
-                {
-                    totalBill += dayHours / MAX_WORKING_HOURS_PER_MOUNT * employee.Salary;
-                }
-            }
+            decimal bill = employee.CalculateBill(timeLogs);
             
             return new EmployeeReport
             {
                 Employee = employee,    
                 TimeLogs = timeLogs.ToList(),
-                TotalHours = totalHours,
-                Bill = totalBill
+                TotalHours = timeLogs.Sum(x => x.WorkingHours),
+                Bill = bill
             };
         }
     }

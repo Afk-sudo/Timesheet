@@ -121,7 +121,13 @@ namespace Timesheet.Tests
             Assert.AreEqual(expectedEmployee.Login, result.Employee.Login);
             Assert.AreEqual(expectedTotalHours, result.TotalHours);
             Assert.AreEqual(expectedTotal, result.Bill);
-        }   
+        }
+
+        [Test]
+        public void GetChiefEmployeeReport_ShouldReturnReport()
+        {
+            
+        }
         [Test]
         public void GetEmployeeReport_TimeLogsForOneDay_ShouldReturnReport()
         {

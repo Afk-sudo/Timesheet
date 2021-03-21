@@ -4,7 +4,8 @@ namespace Timesheet.Domain.Entities
 {
     public class ChiefEmployee : Employee
     {
-        public ChiefEmployee(string login, decimal salary, decimal bonus) : base(login, salary)
+        public ChiefEmployee(string login, decimal salary, decimal bonus) 
+            : base(login, salary)
         {
             Bonus = bonus;
         }
