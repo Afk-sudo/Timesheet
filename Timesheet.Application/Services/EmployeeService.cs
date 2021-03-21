@@ -26,7 +26,9 @@ namespace Timesheet.Application.Services
 
         public bool AddChiefEmployee(ChiefEmployee employee)
         {
-            bool isValid = !string.IsNullOrEmpty(employee.Login) && employee.Salary > 0;
+            bool isValid = !string.IsNullOrEmpty(employee.Login) 
+                           && employee.Salary > 0 
+                           && employee.Bonus > 0;
 
             if (isValid)
             {

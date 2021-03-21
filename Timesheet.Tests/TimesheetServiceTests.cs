@@ -21,7 +21,7 @@ namespace Timesheet.Tests
             {
                 Date = new DateTime(),
                 WorkingHours = workingHourse,
-                Employee = employee,
+                EmployeeLogin = employee.Login,
                 Comment = ""
             };
             UserSession.Sessions.Add(employee);
@@ -59,7 +59,7 @@ namespace Timesheet.Tests
             {
                 Date = new DateTime(),
                 WorkingHours = workingHourse,
-                Employee = employee,
+                EmployeeLogin = employee.Login,
                 Comment = ""
             };
             UserSession.Sessions.Add(employee);

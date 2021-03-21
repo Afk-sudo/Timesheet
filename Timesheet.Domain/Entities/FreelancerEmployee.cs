@@ -10,7 +10,7 @@ namespace Timesheet.Domain.Entities
         public override decimal CalculateBill(TimeLog[] timeLogs)
         {
             var totalHours = timeLogs.Sum(x => x.WorkingHours);
-            return totalHours * Salary;
+            return totalHours / MAX_WORKING_HOURS_PER_MOUNT * Salary;
         }
     }
 }

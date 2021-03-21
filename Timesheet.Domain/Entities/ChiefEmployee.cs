@@ -26,8 +26,9 @@ namespace Timesheet.Domain.Entities
 
                 if (dayHours > MAX_WORKING_HOURS_PER_DAY)
                 {
-                    decimal bonus = MAX_WORKING_HOURS_PER_DAY / MAX_WORKING_HOURS_PER_MOUNT * Salary;
-                    bill += dayHours / MAX_WORKING_HOURS_PER_DAY * Salary + bonus;
+                    decimal bonus = MAX_WORKING_HOURS_PER_DAY / MAX_WORKING_HOURS_PER_MOUNT * Bonus;
+                    bill += MAX_WORKING_HOURS_PER_DAY / MAX_WORKING_HOURS_PER_MOUNT * Salary;
+                    bill += bonus;
                 }
                 else
                 {

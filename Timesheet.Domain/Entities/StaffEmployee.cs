@@ -24,7 +24,7 @@ namespace Timesheet.Domain.Entities
                     var overtime = dayHours - MAX_WORKING_HOURS_PER_DAY;
                     
                     bill += MAX_WORKING_HOURS_PER_DAY / MAX_WORKING_HOURS_PER_MOUNT * Salary;
-                    bill += overtime / MAX_WORKING_HOURS_PER_MOUNT * Salary;
+                    bill += overtime / MAX_WORKING_HOURS_PER_MOUNT * Salary * 2;
                 }
                 else
                 {
