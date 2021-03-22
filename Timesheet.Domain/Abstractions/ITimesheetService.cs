@@ -4,6 +4,6 @@ namespace Timesheet.Domain.Abstractions
 {
     public interface ITimesheetService
     {
-        public bool TrackTime(TimeLog timeLog);
+        public bool TrackTime(TimeLog timeLog, string employeeLogin);
     }
 }

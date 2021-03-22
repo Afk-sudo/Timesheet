@@ -17,7 +17,7 @@ namespace Timesheet.Api.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]TimeLog timeLog)
         {
-            if (_timesheetService.TrackTime(timeLog))
+            if (_timesheetService.TrackTime(timeLog, timeLog.EmployeeLogin))
                 return Ok(timeLog.Comment);
             return NoContent();
         }

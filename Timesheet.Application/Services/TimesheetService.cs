@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Timesheet.Application.Services;
 using Timesheet.Domain.Abstractions;
@@ -17,21 +18,37 @@ namespace Timesheet.Api.Services
         private readonly ITimeLogRepository _timeLogRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
-        public bool TrackTime(TimeLog timeLog)
+        public bool TrackTime(TimeLog timeLog, string employeeLogin)
         {
-            bool isValid = timeLog.WorkingHours > 0 
-                           && timeLog.WorkingHours <= 24 
-                           && _employeeRepository.IsEmployeeExist(timeLog.EmployeeLogin);
-            var employee = UserSession.Sessions.FirstOrDefault(e => e.Login == timeLog.EmployeeLogin);
-            if (employee == null)
-                isValid = false;            
-
-            if(isValid)
+            bool isValid = timeLog.WorkingHours > 0
+                           && timeLog.WorkingHours <= 24;
+            
+            var authorizedEmployee = _employeeRepository.GetEmployee(employeeLogin);
+            
+            if(isValid == false || authorizedEmployee == null)
             {
-                _timeLogRepository.Add(timeLog);
-                return true;
+                return false;
             }
-            return false;
+
+            if (authorizedEmployee is FreelancerEmployee)
+            {
+                if (timeLog.Date > DateTime.Now.AddDays(2)
+                    || timeLog.Date < DateTime.Now.AddDays(-2))
+                {
+                    return false;
+                }
+            }
+
+            if (authorizedEmployee is FreelancerEmployee || authorizedEmployee is StaffEmployee)
+            {
+                if (authorizedEmployee.Login != timeLog.EmployeeLogin)
+                {
+                    return false;
+                }
+            }
+            
+            _timeLogRepository.Add(timeLog);
+            return true;
         }
     }
  }
